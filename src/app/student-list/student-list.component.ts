@@ -12,6 +12,7 @@ import autoTable from 'jspdf-autotable'
 export class StudentListComponent implements OnInit {
   searchKey: any = "";
   allStudentsData: any = [];
+  p: number = 1;
   constructor(private api: AdminApiService) { }
 
   ngOnInit(): void {

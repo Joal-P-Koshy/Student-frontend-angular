@@ -44,7 +44,8 @@
 
                         <tbody>
 
-                            <tr class="text-center" *ngFor="let item of allStudentsData | search : searchKey" [hidden]="item.id === 1">
+                            <tr class="text-center" *ngFor="let item of allStudentsData | search : searchKey |
+                              paginate:{itemsPerPage:6, currentPage:p}" [hidden]="item.id === 1">
                                 <td>{{item.id}}</td>
                                 <td>{{item.name}}</td>
                                 <td>{{item.email}}</td>
@@ -64,6 +65,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <pagination-controls (pageChange)="p = $event" ></pagination-controls>
                 </div>
             </div>
         </div>
