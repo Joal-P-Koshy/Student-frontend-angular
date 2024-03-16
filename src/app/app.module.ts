@@ -12,6 +12,11 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { SearchPipe } from './search.pipe'
 import {NgxPaginationModule} from 'ngx-pagination';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,12 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatCardModule,
+    MatNativeDateModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
