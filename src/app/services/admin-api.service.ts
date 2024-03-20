@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,14 @@ export class AdminApiService {
 
   server_url = "http://localhost:3000"
   constructor(private http:HttpClient) { }
+
+  // creating a behaviour subject
+  public sharedData = new BehaviorSubject(false)
+
+  // create a function to update the value of bs
+  updateData(data: any) {
+    this.sharedData.next(data)
+  }
 
   authorization(){
     return this.http.get(`${this.server_url}/student/1`);
@@ -31,5 +40,9 @@ export class AdminApiService {
 
   updateStudentApi(id : any, data:any){
     return this.http.put(`${this.server_url}/student/${id}`,data);
+  }
+
+  updateAdminApi(admin: any){
+    return this.http.put(`${this.server_url}/student/1`, admin);
   }
 }

@@ -35,6 +35,8 @@ export class LoginComponent {
               text: "Successfully logged in",
               icon: "success"
             });
+            this.api.updateData({data: true})
+            localStorage.setItem('name', res.name)
             // navigate
             this.router.navigateByUrl('dashboard')
           }

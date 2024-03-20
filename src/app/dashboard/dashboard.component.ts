@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: any = {}
 
+  adminDetails: any = '';
+  adminName: any = '';
   editAdminStatus : boolean = false;
   showSidebar: boolean = true;
   stdLength: number = 0;
@@ -94,6 +96,19 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getAllStudentLength();
+
+    if(localStorage.getItem('name')) {
+      this.adminName = localStorage.getItem('name')
+    }
+
+    this.api.authorization().subscribe((res: any) => {
+      this.adminDetails = res;
+      if(this.adminDetails.picture){
+        this.profileImage = res.picture;
+      }
+      console.log(this.adminDetails);
+      
+    })
   }
 
   getAllStudentLength() {
@@ -108,6 +123,38 @@ export class DashboardComponent implements OnInit {
     this.showSidebar = !this.showSidebar;
   }
 
+  edit() {
+    this.editAdminStatus = true;
+  }
+
+  getFile(event: any){
+    let fileDetails = event.target.files[0];
+
+    // fileReader - convert image to binary data
+    let fr = new FileReader();
+    fr.readAsDataURL(fileDetails);
+    fr.onload = (event: any) => {
+      console.log(event.target.result);
+      this.profileImage = event.target.result;
+      this.adminDetails.picture = this.profileImage;
+    }
+    
+  }
+
+  updateAdmin(){
+    this.api.updateAdminApi(this.adminDetails).subscribe({
+      next:(res: any) => {
+        alert('Admin details updated successfully')
+        localStorage.setItem('name', res.name);
+        localStorage.setItem('password', res.password);
+        this.adminName = localStorage.getItem('name');
+        this.editAdminStatus = false;
+      },
+      error:(err: any) => {
+        alert(err)
+      }
+    })
+  }
 
 }
 
